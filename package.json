@@ -1,0 +1,51 @@
+{
+  "name": "trakit",
+  "version": "1.0.0",
+  "description": "Web API to track user subscriptions",
+  "main": "server.js",
+  "type": "module",
+  "contributors": [
+    "Mustapha Mohammed <mustaphamohammed0705@gmail.com> (https://github.com/mustapha0705)",
+    "Ikechukwu Ashimonye <w0nderzz2001@gmail.com> (https://github.com/tech-gecko)",
+    "James Donkor <jamesdonkor987@gmail.com> (https://github.com/donkor-james)"
+  ],
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "lint": "./node_modules/.bin/eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trakit-org/backend-main.git"
+  },
+  "keywords": [
+    "subscription",
+    "tracker",
+    "SaaS"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Trakit-org/backend-main/issues"
+  },
+  "homepage": "https://github.com/Trakit-org/backend-main#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-jest": "^28.11.0",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.16"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "eslint": "8.50.0",
+    "globals": "^15.14.0",
+    "nodemon": "^3.1.9"
+  }
+}
