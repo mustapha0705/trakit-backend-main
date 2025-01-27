@@ -26,16 +26,35 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Use the routers from all routes with optionalAuth middleware
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/users", optionalAuth, userRoutes);
-app.use("/api/v1/subscriptions", optionalAuth, subscriptionRoutes);
-app.use("/api/v1/reminders", optionalAuth, reminderRoutes);
+app.set("trust proxy", 1);
+app.use(
+  rateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+    standardHeaders: "draft-8", // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  })
+);
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    credentials: true,
+  })
+);
+app.use(helmet());
+app.use(xss());
 
 // Define basic GET route for health check
 app.get("/", (req, res) => {
   return res.status(200).send("API working perfectly!");
 });
+
+// Use the routers from all routes with optionalAuth middleware
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", optionalAuth, userRoutes);
+app.use("/api/v1/subscriptions", optionalAuth, subscriptionRoutes);
+app.use("/api/v1/reminders", optionalAuth, reminderRoutes);
 
 app.use(routeNotFound);
 
@@ -51,7 +70,7 @@ const start = async () => {
     console.log("reminders initialized...");
 
     app.listen(PORT, () => {
-      console.log(`server running successfully on http://localhost:${PORT}`);
+      console.log(`server running successfully at address http://localhost:${PORT}`);
     });
   } catch (error) {
     console.error("error starting the server:", error);
