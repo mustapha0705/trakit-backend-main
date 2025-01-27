@@ -13,6 +13,12 @@ import userRoutes from "./routes/userRoutes.js";
 import subscriptionRoutes from "./routes/subscriptionRoutes.js";
 import reminderRoutes from "./routes/reminderRoutes.js";
 
+// security  packages
+import cors from "cors";
+import helmet from "helmet";
+import xss from "xss-clean";
+import rateLimiter from "express-rate-limit";
+
 // Load environment variables and configure the server
 import dotenv from "dotenv";
 dotenv.config();
